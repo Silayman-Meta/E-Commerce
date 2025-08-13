@@ -236,6 +236,7 @@ function dynamicContentDetails(ob)
 
     return mainContainer
 }
+}
 
 
 
