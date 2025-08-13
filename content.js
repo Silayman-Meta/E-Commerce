@@ -25,7 +25,7 @@ function dynamicClothingSection(ob) {
 
   // Product image with link
   let boxLink = document.createElement("a");
-  boxLink.href = "/contentDetails.html?" + ob.id;
+  boxLink.href = "contentDetails.html?" + ob.id;
 
   let imgTag = document.createElement("img");
   imgTag.src = ob.image;
