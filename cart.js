@@ -222,7 +222,7 @@ const buttonTag = document.createElement('button');
 buttonTag.textContent = 'Place Order';
 buttonTag.disabled = true; // Disable by default, will enable if cart has items
 buttonTag.onclick = function() {
-    window.location.href = '/orderPlaced.html';
+    window.location.href = 'orderPlaced.html';
 };
 
 buttonDiv.appendChild(buttonTag);
