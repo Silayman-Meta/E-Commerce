@@ -1,3 +1,9 @@
+// Load Facebook Pixel script
+const pixelScript = document.createElement('script');
+pixelScript.src = 'js/facebook-pixel.js';
+pixelScript.async = true;
+document.head.appendChild(pixelScript);
+
 // Function to get cart items from cookie
 function getCartItems() {
     let cartItems = [];
@@ -91,4 +97,16 @@ if (cartItems.length > 0) {
             orderContainer.appendChild(orderSummary);
         }
     }, 500);
+
+    // Track Facebook Pixel Purchase event
+    setTimeout(() => {
+        if (window.facebookPixel) {
+            const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+            window.facebookPixel.trackPurchase({
+                totalAmount: orderAmount,
+                totalItems: totalItems,
+                items: cartItems
+            });
+        }
+    }, 1000);
 }

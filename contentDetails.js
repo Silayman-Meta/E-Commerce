@@ -9,6 +9,12 @@ if(document.cookie.indexOf(',counter=')>=0)
     document.getElementById("badge").innerHTML = counter
 }
 
+// Load Facebook Pixel script
+const pixelScript = document.createElement('script');
+pixelScript.src = 'js/facebook-pixel.js';
+pixelScript.async = true;
+document.head.appendChild(pixelScript);
+
 function dynamicContentDetails(ob)
 {
     let mainContainer = document.createElement('div')
@@ -176,6 +182,18 @@ function dynamicContentDetails(ob)
         // Update badge
         document.getElementById("badge").innerHTML = counter;
 
+        // Track Facebook Pixel AddToCart event
+        setTimeout(() => {
+            if (window.facebookPixel) {
+                window.facebookPixel.trackAddToCart({
+                    id: id,
+                    name: ob.title,
+                    category: ob.category,
+                    price: ob.price
+                });
+            }
+        }, 100);
+
         // Show confirmation message
         const confirmationMsg = document.createElement('div');
         confirmationMsg.style.position = 'fixed';
@@ -253,6 +271,18 @@ httpRequest.onreadystatechange = function()
         let contentDetails = JSON.parse(this.responseText)
         console.log(contentDetails);
         dynamicContentDetails(contentDetails);
+        
+        // Track Facebook Pixel ViewContent event
+        setTimeout(() => {
+            if (window.facebookPixel) {
+                window.facebookPixel.trackViewContent({
+                    id: id,
+                    name: contentDetails.title,
+                    category: contentDetails.category,
+                    price: contentDetails.price
+                });
+            }
+        }, 500);
     }
     else
     {

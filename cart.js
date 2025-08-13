@@ -1,5 +1,11 @@
 console.clear();
 
+// Load Facebook Pixel script
+const pixelScript = document.createElement('script');
+pixelScript.src = 'js/facebook-pixel.js';
+pixelScript.async = true;
+document.head.appendChild(pixelScript);
+
 // Update badge counter from cookie
 function updateBadgeCounter() {
     // Check for the counter cookie (for backward compatibility)
@@ -263,6 +269,15 @@ function renderCart() {
 
         // Enable checkout button
         buttonTag.disabled = false;
+
+        // Track Facebook Pixel InitiateCheckout event
+        setTimeout(() => {
+            if (window.facebookPixel) {
+                window.facebookPixel.trackInitiateCheckout({
+                    items: cartItems
+                });
+            }
+        }, 1000);
     } else {
         // Display empty cart message
         const emptyCartMessage = document.createElement('h3');
