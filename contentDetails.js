@@ -199,6 +199,8 @@ function dynamicContentDetails(ob)
                 document.body.removeChild(confirmationMsg);
             }, 500);
         }, 2000);
+    }
+
     // Add "Buy Now" button (JoyMart style)
     let buyNowDiv = document.createElement('div')
     buyNowDiv.id = 'buyNow'
@@ -236,29 +238,25 @@ function dynamicContentDetails(ob)
 
     return mainContainer
 }
-}
 
 
 
 // BACKEND CALLING
 
 let httpRequest = new XMLHttpRequest()
-{
+
 httpRequest.onreadystatechange = function()
+{
+    if(this.readyState === 4 && this.status == 200)
     {
-        if(this.readyState === 4 && this.status == 200)
-        {
-            console.log('connected!!');
-            let contentDetails = JSON.parse(this.responseText)
-            {
-                console.log(contentDetails);
-                dynamicContentDetails(contentDetails);
-            }
-        }
-        else
-        {
-            console.log('not connected!');
-        }
+        console.log('connected!!');
+        let contentDetails = JSON.parse(this.responseText)
+        console.log(contentDetails);
+        dynamicContentDetails(contentDetails);
+    }
+    else
+    {
+        console.log('not connected!');
     }
 }
 
