@@ -217,7 +217,7 @@ function dynamicContentDetails(ob)
     buyNowButton.style.width = "100%"
     buyNowButton.style.marginTop = "10px"
     buyNowButton.onclick = function() {
-        window.location.href = '/orderPlaced.html';
+        window.location.href = 'orderPlaced.html';
     }
 
     buyNowDiv.appendChild(buyNowButton)
